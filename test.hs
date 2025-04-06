@@ -50,3 +50,37 @@ maximo3 x y z
   | x >= y && x >= z = x
   | y >= x && y >= z = y
   | otherwise        = z
+
+-- ej 3
+
+{-
+problema estanRelacionados (a : Z, b : Z) : Bool {
+  requiere: {a ̸= 0 ∧ b ̸= 0}
+  asegura: {(res = true) ↔ (a ∗ a + a ∗ b ∗ k = 0 para alg´un k ∈ Z con k ̸= 0)}
+}
+-}
+ 
+estanRelacionados :: Integer -> Integer -> Bool
+estanRelacionados x y
+  | mod (-x^2) (x * y) == 0 = True
+  | otherwise = False
+
+
+-- ej 4
+productoInterno :: (Float, Float) -> (Float, Float) -> Float
+productoInterno (x1, y1) (x2, y2) = x1 * x2 + y1 * y2
+
+esParMenor :: (Float, Float) -> (Float, Float) -> Bool
+esParMenor (x1, y1) (x2, y2) 
+  | x1 < x2 && y1 < y2 = True
+  | otherwise = False
+
+distancia :: (Float, Float) -> (Float, Float) -> Float
+distancia (x1, y1) (x2, y2) = sqrt ((x2 - x1)^2 + (y2 - y1)^2)
+
+sumarSoloMultiplos :: (Integer, Integer, Integer) -> Integer -> Integer
+sumarSoloMultiplos (x, y, z) j = esMultiplo x j * x + esMultiplo y j * y + esMultiplo z j * z
+  where
+    esMultiplo a b
+      | mod a b == 0 = 1
+      | otherwise    = 0
