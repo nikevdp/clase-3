@@ -84,3 +84,50 @@ sumarSoloMultiplos (x, y, z) j = esMultiplo x j * x + esMultiplo y j * y + esMul
     esMultiplo a b
       | mod a b == 0 = 1
       | otherwise    = 0
+
+posPrimerPar :: (Int, Int, Int)  -> Int 
+posPrimerPar (x, y, z) 
+  | mod x 2 == 0 = x
+  | mod y 2 == 0 = y
+  | mod z 2 == 0 = z
+  |otherwise = 4
+
+bisiesto :: Int -> Bool
+bisiesto x
+ | mod x 400 == 0 = True
+ | mod x 100 == 0 = False
+ | mod x 4 == 0   = True
+ | otherwise = False
+
+
+
+{-problema distanciaManhattan (p: R × R × R, q: R × R × R) : R {
+requiere: {True}
+asegura: {res = ∑ (de i=0 a 2) |pi − qi|}
+-}
+
+type Coordenada3d = (Float, Float, Float)
+
+distanciaManhattan :: Coordenada3d -> Coordenada3d -> Float
+distanciaManhattan (x1, y1, z1) (x2, y2, z2) = abs(x1 - x2) + abs(y1 - y2) + abs(z1 - z2)
+
+{-Implementar una funci´on comparar :: Integer -> Integer ->
+Integer
+problema comparar (a:Z, b:Z) : Z {
+requiere: {True}
+asegura: {(res= 1 ↔ sumaUltimosDosDigitos(a) <
+sumaUltimosDosDigitos(b))}
+asegura: {(res=-1 ↔ sumaUltimosDosDigitos(a) >
+sumaUltimosDosDigitos(b))}
+asegura: {(res= 0 ↔ sumaUltimosDosDigitos(a) =
+sumaUltimosDosDigitos(b))}
+}-}
+
+sumaUltimosDosDigitos :: Integer -> Integer
+sumaUltimosDosDigitos x = mod x 10 + mod (div x 10) 10
+
+comparar :: Integer -> Integer -> Integer
+comparar a b
+  | sumaUltimosDosDigitos a < sumaUltimosDosDigitos b  = 1
+  | sumaUltimosDosDigitos a > sumaUltimosDosDigitos b  = (-1)
+  | otherwise = 0
