@@ -75,6 +75,9 @@ esParMenor (x1, y1) (x2, y2)
   | x1 < x2 && y1 < y2 = True
   | otherwise = False
 
+esParMenor2 :: (Float, Float) -> (Float, Float) -> Bool
+esParMenor2 t1 t2 = fst t1 < fst t2 && snd t1 < snd t2
+
 distancia :: (Float, Float) -> (Float, Float) -> Float
 distancia (x1, y1) (x2, y2) = sqrt ((x2 - x1)^2 + (y2 - y1)^2)
 
@@ -87,10 +90,13 @@ sumarSoloMultiplos (x, y, z) j = esMultiplo x j * x + esMultiplo y j * y + esMul
 
 posPrimerPar :: (Int, Int, Int)  -> Int 
 posPrimerPar (x, y, z) 
-  | mod x 2 == 0 = x
-  | mod y 2 == 0 = y
-  | mod z 2 == 0 = z
-  |otherwise = 4
+  | mod x 2 == 0 = 1
+  | mod y 2 == 0 = 2
+  | mod z 2 == 0 = 3
+  | otherwise = 4
+
+
+-- ej 6
 
 bisiesto :: Int -> Bool
 bisiesto x
@@ -99,6 +105,10 @@ bisiesto x
  | mod x 4 == 0   = True
  | otherwise = False
 
+bisiesto2 :: Int -> Bool
+bisiesto2 x
+ | mod x 100 == 0 = mod x 400 == 0
+ | otherwise = mod x 4 == 0 
 
 
 {-problema distanciaManhattan (p: R × R × R, q: R × R × R) : R {
@@ -131,3 +141,4 @@ comparar a b
   | sumaUltimosDosDigitos a < sumaUltimosDosDigitos b  = 1
   | sumaUltimosDosDigitos a > sumaUltimosDosDigitos b  = (-1)
   | otherwise = 0
+
