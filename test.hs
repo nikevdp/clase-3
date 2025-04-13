@@ -142,3 +142,32 @@ comparar a b
   | sumaUltimosDosDigitos a > sumaUltimosDosDigitos b  = (-1)
   | otherwise = 0
 
+-- guia 4
+fibonacci :: Int->Int
+fibonacci x
+  | x == 0 || x == 1 = x
+  | otherwise = fibonacci(x - 1) + fibonacci(x - 2)
+
+fibonacci2 :: Int->Int
+fibonacci2 0 = 0
+fibonacci2 1 = 1
+fibonacci2 x = fibonacci2(x - 1) + fibonacci2(x - 2)
+
+buscarNumero :: Float->Float->Float
+buscarNumero x n
+  | n > x = n - 1
+  | otherwise = buscarNumero x ( n + 1 )
+
+parteEntera :: Float->Float
+parteEntera x = buscarNumero x 0
+
+
+cantDigitos :: Int->Int->Int
+cantDigitos x n
+  | div x 10 == 0 = n
+  | otherwise = cantDigitos (div x 10) (n+1)
+
+iesimoDigito :: Int->Int->Int
+iesimoDigito x y = mod (div x (10 ^ ((cantDigitos x 1) - y ))) 10
+
+-- iesimoDigito :: Int->Int->Int
