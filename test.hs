@@ -162,12 +162,34 @@ parteEntera :: Float->Float
 parteEntera x = buscarNumero x 0
 
 
-cantDigitos :: Int->Int->Int
-cantDigitos x n
-  | div x 10 == 0 = n
-  | otherwise = cantDigitos (div x 10) (n+1)
+cantDigitos :: Int->Int
+cantDigitos x
+  | x < 10 = 1
+  | otherwise = 1 + cantDigitos (div x 10)
 
 iesimoDigito :: Int->Int->Int
-iesimoDigito x y = mod (div x (10 ^ ((cantDigitos x 1) - y ))) 10
+iesimoDigito x y = mod (div x (10 ^ ((cantDigitos x) - y ))) 10
 
--- iesimoDigito :: Int->Int->Int
+
+-- ej capicua
+-- problema por no poder conbinar float y Int
+mitadDigitos :: Int->Int
+mitadDigitos x 
+  | x < 10 = 1
+  | otherwise = div (cantDigitos x) 2
+
+sumarMitadDerecha :: Int->Int
+sumarMitadDerecha x
+  | x < 10 = x
+  | otherwise = div (mod x (10 ^ (mitadDigitos x))) 10 + sumarMitadDerecha (mod x (10 ^ (mitadDigitos x)))
+
+sumarMitadIzquierda :: Int->Int
+sumarMitadIzquierda x
+  | x < 10 = x
+  | mod (cantDigitos x) 2 == 0 = (mod (div x (10 ^ (mitadDigitos x))) 10) + 
+  | otherwise = 2
+esCapicua :: Int->Bool
+esCapicua x
+  | div x 10 == 0 = True
+  | sumarMitadDerecha x == mod x (10 ^ (mitadDigitos x)) =True
+  | otherwise = False
