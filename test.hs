@@ -143,6 +143,11 @@ comparar a b
   | otherwise = 0
 
 -- guia 4
+factorial :: Int->Int
+factorial x
+  | x == 0 = 1
+  | otherwise = x * factorial(x - 1)
+
 fibonacci :: Int->Int
 fibonacci x
   | x == 0 || x == 1 = x
@@ -153,14 +158,12 @@ fibonacci2 0 = 0
 fibonacci2 1 = 1
 fibonacci2 x = fibonacci2(x - 1) + fibonacci2(x - 2)
 
-buscarNumero :: Float->Float->Float
-buscarNumero x n
-  | n > x = n - 1
-  | otherwise = buscarNumero x ( n + 1 )
+parteEntera :: Float->Int
+parteEntera x 
+  | x < 1 = 0
+  | otherwise = parteEntera(x - 1) + 1
 
-parteEntera :: Float->Float
-parteEntera x = buscarNumero x 0
-
+-- intentar parte entera con negativos
 
 cantDigitos :: Int->Int
 cantDigitos x
@@ -170,26 +173,18 @@ cantDigitos x
 iesimoDigito :: Int->Int->Int
 iesimoDigito x y = mod (div x (10 ^ ((cantDigitos x) - y ))) 10
 
-
+iesimoDigito2 :: Int->Int->Int
+iesimoDigito2 x y
+  | x < 10 = x
+  | cantDigitos x == y = mod x 10
+  | otherwise = iesimoDigito2 (div x 10) y
 -- ej capicua
 -- problema por no poder conbinar float y Int
-mitadDigitos :: Int->Int
-mitadDigitos x 
-  | x < 10 = 1
-  | otherwise = div (cantDigitos x) 2
 
-sumarMitadDerecha :: Int->Int
-sumarMitadDerecha x
-  | x < 10 = x
-  | otherwise = div (mod x (10 ^ (mitadDigitos x))) 10 + sumarMitadDerecha (mod x (10 ^ (mitadDigitos x)))
+sacarPrimerDigito :: Int->Int
+sacarPrimerDigito x = mod x (10^((cantDigitos x)-1))
 
-sumarMitadIzquierda :: Int->Int
-sumarMitadIzquierda x
-  | x < 10 = x
-  | mod (cantDigitos x) 2 == 0 = (mod (div x (10 ^ (mitadDigitos x))) 10) + 
-  | otherwise = 2
 esCapicua :: Int->Bool
 esCapicua x
-  | div x 10 == 0 = True
-  | sumarMitadDerecha x == mod x (10 ^ (mitadDigitos x)) =True
-  | otherwise = False
+  | x < 10 = True
+  | otherwise = iesimoDigito x 1 == iesimoDigito x (cantDigitos x) && esCapicua (sacarPrimerDigito(div x 10))
