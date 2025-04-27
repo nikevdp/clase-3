@@ -188,3 +188,41 @@ esCapicua :: Int->Bool
 esCapicua x
   | x < 10 = True
   | otherwise = iesimoDigito x 1 == iesimoDigito x (cantDigitos x) && esCapicua (sacarPrimerDigito(div x 10))
+
+-- guia 5
+
+longitud :: [Int]->Int
+
+longitud [] = 0
+longitud (_:xs) = 1 + longitud xs
+
+sumatoria :: [Int]->Int
+sumatoria [] = 0
+sumatoria (x:xs) = sumatoria xs + x
+
+pertenece :: Int->[Int]->Bool
+pertenece y t 
+  | t == [] = False
+  | head t == y = True
+  | otherwise = pertenece y (tail t)
+
+pertenece2 :: Int->[Int]->Bool
+pertenece2 y [] = False
+pertenece2 y (x:xs) 
+  | x == y = True
+  | otherwise = pertenece y xs
+
+sacarBlancosRepetidos :: [Char]->[Char]
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos [x] = [x]
+sacarBlancosRepetidos (x:xs)
+  | x == ' ' && head xs == ' ' = sacarBlancosRepetidos xs
+  | otherwise = x : sacarBlancosRepetidos xs
+
+contarPalabras :: [Char]->Integer
+contarPalabras [] = 0
+contarPalabras [x] = 1
+contarPalabras (x:y:xs)
+  | xs == [] = 0
+  | x /= ' ' && y /= ' ' = contarPalabras xs + 1
+  | otherwise = contarPalabras xs 
