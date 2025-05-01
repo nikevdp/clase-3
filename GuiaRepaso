@@ -1,0 +1,15 @@
+module GuiaRepaso where
+
+generarStock :: [String] -> [(String, Int)]
+generarStock [] = []
+generarStock (x:xs) | otherwise = [(x, (contarProductos xs x 1))] ++ generarStock (eliminarProductoContado xs x)
+
+contarProductos :: [String] -> String -> Int -> Int
+contarProductos [] producto i = i
+contarProductos (x:xs) producto i | producto == x = contarProductos xs producto (i+1)
+                                  | otherwise = contarProductos xs producto i
+
+eliminarProductoContado :: [String] -> String -> [String]
+eliminarProductoContado [] productoEliminado = []
+eliminarProductoContado (x:xs) productoEliminado | productoEliminado == x = eliminarProductoContado xs productoEliminado
+                                                 | otherwise = eliminarProductoContado xs productoEliminado ++ [x]
