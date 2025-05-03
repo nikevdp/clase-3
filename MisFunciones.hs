@@ -1,8 +1,5 @@
 module MisFunciones where
 
-import Test.Hunit
-import MisFunciones
-
 fibonacci :: Int->Int
 fibonacci x
   | x == 0 || x == 1 = x
